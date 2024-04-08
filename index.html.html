@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+	<title>&#65279;</title> <!--there is an empty character here, so there is no title vissible in the browser-->
+	<style>
+		body{
+			overflow: hidden;
+		}
+		#background {
+			position: absolute;
+			top: 0px;
+			right: 0px;
+		}
+		#time {
+			position: absolute;
+			top: 5%;
+			width: 100%;
+			font-size: 100px;
+			text-align: center;
+			color: rgb(14, 114, 96, 0.5);
+		}
+		
+		
+	</style>
+</head>
+
+<body>
+
+	<div id="background"> </div>
+	<div id="time"> </div>
+
+
+	<script>
+		
+		//events
+		//addEventListener('keypress', (event) => {});
+		//onkeypress = (event) => { 
+		//	openFullscreen();
+		//};
+		//addEventListener('onclick', (event) => {});
+		//onclick = (event) => {
+		//	openFullscreen();
+		//};
+		addEventListener('resize', (event) => {});
+		onresize = (event) => {
+			getBackground();
+		};
+		
+		//fullscreen
+		//var element = document.documentElement;
+		//function openFullscreen() {
+		//	element.requestFullscreen();
+		//}
+		
+		
+		
+		
+		
+		//choose an image
+		var imageChoice = Math.floor(Math.random() * 11);
+		
+		
+		
+		
+		
+		
+		//background
+		getBackground();
+		
+		function getBackground() {
+			var el = document.getElementById("background");
+			
+			//the image is 1980 by 1080, which is 1.777:1
+			var name = "<img src=\"" + imageChoice + ".png\" width=\"" + window.innerWidth + "\" height=auto>";
+			if(window.innerWidth < (1.777 * window.innerHeight)) {
+				name = "<img src=\"" + imageChoice + ".png\" width=auto height=\"" + window.innerHeight + "\">";
+			}
+			el.innerHTML=name;
+		}
+		
+		
+		
+		
+		//clock
+		var time = document.querySelector('.time');
+		var dateTime = document.querySelector('.date-time');
+		updateClock();
+		
+		function updateClock() {
+			var now = new Date();
+			var hours = now.getHours();
+			var minutes = now.getMinutes();
+			var seconds = now.getSeconds();
+
+			hours = hours < 10 ? '0' + hours : hours;
+			minutes = minutes < 10 ? '0' + minutes : minutes;
+			seconds = seconds < 10 ? '0' + seconds : seconds;
+
+			var timething = document.getElementById("time");
+			var theTime = hours + ':' + minutes + ':' + seconds;
+			timething.innerHTML=theTime;
+			
+			var t = setTimeout(function(){ updateClock() }, 1000); /* setting timer */
+		 }
+				 
+//		changeColour();
+//		
+//		function changeColour() {
+//			var img = new Image();
+//			img.src = imageChoice + ".png";
+//			
+//			console.log("test2");
+//			var context = document.createElement('canvas').getContext('2d');
+//			context.drawImage(img, 0, 0);
+//			var data = context.getImageData(10, 10, 1, 1).data;
+//			console.log("" + data[0] + "" + data[1] + "" + data[2]);
+//			
+//			
+//			var clockText = document.getElementById("time");
+//			clockText.style.color = "$FF0000";
+//		}
+		
+		
+
+		 
+	</script>
+<body>
+
+
+</html> 
