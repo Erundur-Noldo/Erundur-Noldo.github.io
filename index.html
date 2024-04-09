@@ -45,20 +45,20 @@
 		
 		//choose an image (not one of the five last chosen)
         const lastFiveImagesCookieName = 'lastFiveImages';
-        let lastFiveImages = [0,1,2,3,4];
+        let lastFiveImages = [];
 
-		let numberOfImages = 8;
+		let numberOfImages = 44;
 
 		
 		
 		
 		
 		
-        setCookie(lastFiveImagesCookieName, lastFiveImages, 365);
+        //setCookie(lastFiveImagesCookieName, lastFiveImages, 365);
 		
 		
 		//load the last five images from the cookies
-		initializeLastFiveImages();
+		//initializeLastFiveImages();
 		
 		
 		//background
@@ -90,7 +90,7 @@
 
 
 
-            saveLastFiveImagesToCookie();
+            //saveLastFiveImagesToCookie();
 
 			
 			var name = "<img src=\"" + imageChoice + ".png\" width=\"" + window.innerWidth + "\" height=auto>";
