@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html>
+
+<html lang="en">
 
 <head>
 
@@ -34,45 +35,63 @@
 
 	<script>
 		
-		//events
-		//addEventListener('keypress', (event) => {});
-		//onkeypress = (event) => { 
-		//	openFullscreen();
-		//};
-		//addEventListener('onclick', (event) => {});
-		//onclick = (event) => {
-		//	openFullscreen();
-		//};
+		
 		addEventListener('resize', (event) => {});
 		onresize = (event) => {
 			getBackground();
-		};
-		
-		//fullscreen
-		//var element = document.documentElement;
-		//function openFullscreen() {
-		//	element.requestFullscreen();
-		//}
+		};		
 		
 		
 		
-		
-		
-		//choose an image
-		var imageChoice = Math.floor(Math.random() * 44);
+		//choose an image (not one of the five last chosen)
+        const lastFiveImagesCookieName = 'lastFiveImages';
+        let lastFiveImages = [];
+
+		let numberOfImages = 7;
+
 		
 		
 		
 		
+		
+		
+		
+		//load the last five images from the cookies
+		initializeLastFiveImages();
 		
 		
 		//background
 		getBackground();
 		
+
+		
+		print
+
+
 		function getBackground() {
-			var el = document.getElementById("background");
+		
 			
+			
+			
+		
+			var el = document.getElementById("background");
+
 			//the image is 1980 by 1080, which is 1.777:1
+            const aspectRatio = 1980 / 1080; // 1.777:1
+
+            const width = window.innerWidth;
+            const height = window.innerHeight;
+
+            let imageChoice;
+            do {
+                imageChoice = Math.floor(Math.random() * numberOfImages);
+            } while (lastFiveImages.includes(imageChoice));
+
+
+
+            saveLastFiveImagesToCookie();
+
+			
 			var name = "<img src=\"" + imageChoice + ".png\" width=\"" + window.innerWidth + "\" height=auto>";
 			if(window.innerWidth < (1.777 * window.innerHeight)) {
 				name = "<img src=\"" + imageChoice + ".png\" width=auto height=\"" + window.innerHeight + "\">";
@@ -105,24 +124,43 @@
 			var t = setTimeout(function(){ updateClock() }, 1000); /* setting timer */
 		 }
 				 
-//		changeColour();
-//		
-//		function changeColour() {
-//			var img = new Image();
-//			img.src = imageChoice + ".png";
-//			
-//			console.log("test2");
-//			var context = document.createElement('canvas').getContext('2d');
-//			context.drawImage(img, 0, 0);
-//			var data = context.getImageData(10, 10, 1, 1).data;
-//			console.log("" + data[0] + "" + data[1] + "" + data[2]);
-//			
-//			
-//			var clockText = document.getElementById("time");
-//			clockText.style.color = "$FF0000";
-//		}
+		
+		//cookie functions
 		
 		
+        function initializeLastFiveImages() {
+            const cookieValue = getCookie(lastFiveImagesCookieName);
+            if (cookieValue) {
+                lastFiveImages = JSON.parse(cookieValue);
+ 				console.log("done something");
+           } else {
+				console.log("done something not");
+			}
+        }
+
+        function saveLastFiveImagesToCookie() {
+            setCookie(lastFiveImagesCookieName, JSON.stringify(lastFiveImages), 365); // Store for 365 days
+        }
+
+
+       function setCookie(name, value, days) {
+            const date = new Date();
+            date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+            const expires = "expires=" + date.toUTCString();
+            document.cookie = name + "=" + value + ";" + expires + ";path=/";
+        }
+
+        function getCookie(name) {
+            const decodedCookie = decodeURIComponent(document.cookie);
+            const cookies = decodedCookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                if (cookie.startsWith(name + '=')) {
+                    return cookie.substring(name.length + 1);
+                }
+            }
+            return '';
+        }
 
 		 
 	</script>
