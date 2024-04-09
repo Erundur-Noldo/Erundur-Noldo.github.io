@@ -45,15 +45,16 @@
 		
 		//choose an image (not one of the five last chosen)
         const lastFiveImagesCookieName = 'lastFiveImages';
-        let lastFiveImages = [];
+        let lastFiveImages = [0,1,2,3,4];
 
-		let numberOfImages = 7;
+		let numberOfImages = 8;
 
 		
 		
 		
 		
 		
+        setCookie(lastFiveImagesCookieName, lastFiveImages, 365);
 		
 		
 		//load the last five images from the cookies
